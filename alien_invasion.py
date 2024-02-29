@@ -1,22 +1,33 @@
 import pygame
 
-def main():
-    """ Set up the game and rum the main loop"""
+from settings import Settings
+from ship import Ship
+import game_functions as gf
 
-    pygame.init() # Prepare the pygame module for use
-    surface_sz = 480 # Describe physical surface in pixels
 
-    # Create surface of width, height and its window.
-    main_surface = pygame.display.set_mode((surface_sz, surface_sz))
+def run_game():
+    # Initialize game, settings ans screen object.
+    pygame.init()
 
-    # Set up some data to describe a small rectangle and it color
-    small_rect = (300, 200, 150, 90)
-    some_color = (250, 0, 0)
+    # An instance of Settings
+    ai_settings = Settings()
+    screen = pygame.display.set_mode(
+        (ai_settings.screen_width, ai_settings.screen_height)
+    )  #
+    pygame.display.set_caption("Alien Invasion")
 
+    # Making a ship
+    ship = Ship(ai_settings, screen)
+
+    # Set the background color
+    # This is specified only once, so define it before the main while loop.
+    bg_color = (230, 230, 230)
+
+    # Start the main loop for the game.
     while True:
-        ev = pygame.event.poll() # Look for any event
-        if ev.type == pygame.QUIT: # Window close button clicked?
-            break # Leave game loop
-        
+        gf.check_events(ship)
+        ship.update()
+        gf.update_screen(ai_settings, screen, ship)
 
-pygame.quit()
+
+run_game()

@@ -19,4 +19,4 @@ class Settings:
         self.bullet_width = 3  # 3 Pixels
         self.bullet_height = 15  # 15 pixels
         self.bullet_color = 60, 60, 60  # Dark grey bullet
-        self.bullet_allowed = 3  # To limit the number of bullets a player can have on the screen at once. To be precise with the firing
+        self.bullets_allowed = 3  # To limit the number of bullets a player can have on the screen at once. To be precise with the firing

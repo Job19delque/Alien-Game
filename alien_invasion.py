@@ -1,3 +1,6 @@
+""" This is the main file. Where you run to play the game. 
+    The others file are imported here.
+     """
 import pygame
 
 from settings import Settings

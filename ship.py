@@ -1,4 +1,5 @@
 import pygame
+from pygame.sprite import Sprite
 
 
 class Ship:
@@ -24,13 +25,15 @@ class Ship:
         self.moving_left = False
 
     def update(self):
-        """Update the ship's position based on the movement flag."""
-        # Update the ship's position based on movement flags.
-        if self.moving_right and self.rect.right < self.screen_rect.right:
+        """Update the ship's position based on the movement flags."""
+        # Update the ship's center value, not the rect.
+        if (
+            self.moving_right and self.rect.right < self.screen_rect.right
+        ):  # To limit ship's range
             self.center += self.ai_settings.ship_speed_factor
 
-        if self.moving_left and self.rect.left > 0:
-            self.moving_left -= self.ai_settings.ship_speed_factor
+        if self.moving_left and self.rect.left > 0:  # To limit ship's range
+            self.center -= self.ai_settings.ship_speed_factor
 
         # Update rect object from self.center
         self.rect.centerx = self.center

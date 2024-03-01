@@ -1,3 +1,5 @@
+"""Here we control the game's appearance as well as the ship's speed"""
+
 class Settings:
     """A class to store all settings for Alien Invasion."""
 
@@ -10,3 +12,9 @@ class Settings:
 
         # Ship settings
         self.ship_speed_factor = 1.5
+
+        # Bullet Settings
+        self.bullet_speed_factor = 1
+        self.bullet_width = 3 # 3 Pixels
+        self.bullet_height = 15 # 15 pixels
+        self.bullet_color = 60, 60, 60 # Dark grey bullet

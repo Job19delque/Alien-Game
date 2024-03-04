@@ -30,7 +30,7 @@ def update_screen(ai_settings, screen, ship, alien, bullets):
         bullet.draw_bullet()
 
     ship.blitme()
-    alien.blitme()
+    alien.blitme() # To make alien appear onscreen
 
     # Make the most recently drawn screen visible.
     pygame.display.flip()

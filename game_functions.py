@@ -45,10 +45,17 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
         ship.moving_left = True
 
     elif event.key == pygame.K_SPACE:
-        # Create a new bullet and add it to the bullets group
-        if len(bullets) < ai_settings.bullets_allowed:
-            new_bullet = Bullet(ai_settings, screen, ship)
-            bullets.add(new_bullet)
+        fire_bullet(ai_settings, screen, ship, bullets)
+
+
+def fire_bullet(
+    ai_settings, screen, ship, bullets
+):  # In order for elif block in Check_keydown_events simple
+    """Fire a bullet if limit not reached yet"""
+    # Create a new bullet and add it to the bullets group
+    if len(bullets) < ai_settings.bullets_allowed:
+        new_bullet = Bullet(ai_settings, screen, ship)
+        bullets.add(new_bullet)
 
 
 def check_keyup_events(event, ship):
@@ -57,6 +64,7 @@ def check_keyup_events(event, ship):
         ship.moving_right = False
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
+
 
 def update_bullets(bullets):
     """Updating position of bullets and get rid of old bullets"""

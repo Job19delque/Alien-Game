@@ -36,18 +36,7 @@ def run_game():
         gf.check_events(ai_settings, screen, ship, bullets)
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
-        bullets.update()
-
-        # Get rid of bullets that have disappeared.
-        for (
-            bullet
-        ) in (
-            bullets.copy()
-        ):  # We shouldn't remove items from a list or group within a for loop, we have to loop over a copy of the group
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
-        print(len(bullets))
-
+        gf.update_bullets(bullets)
         gf.update_screen(ai_settings, screen, ship, bullets)
 
 

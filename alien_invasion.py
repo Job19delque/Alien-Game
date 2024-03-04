@@ -26,7 +26,7 @@ def run_game():
 
     # Making a Ship
     ship = Ship(ai_settings, screen)
-    
+
     # Making an Alien
     alien = Alien(ai_settings, screen)
 
@@ -41,7 +41,6 @@ def run_game():
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
         gf.update_bullets(bullets)
-        gf.update_screen(ai_settings, screen, ship, bullets)
         gf.update_screen(ai_settings, screen, ship, alien, bullets)
 
 

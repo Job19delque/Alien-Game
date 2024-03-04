@@ -5,7 +5,7 @@
 import pygame
 from pygame.sprite import (
     Group,
-)  # This behaves like a list wit some extra functionalities
+)  # This behaves like a list with some extra functionalities
 
 from settings import Settings
 from ship import Ship

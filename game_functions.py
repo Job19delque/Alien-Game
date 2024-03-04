@@ -24,7 +24,7 @@ def update_screen(ai_settings, screen, ship, bullets):
     """Update images on the screen and flip to the new screen."""
     # Redraw the screen during each pass through the loop
     screen.fill(ai_settings.bg_color)
-    
+
     # Redraw all bullets behind ship and aliens
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -57,3 +57,17 @@ def check_keyup_events(event, ship):
         ship.moving_right = False
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
+
+def update_bullets(bullets):
+    """Updating position of bullets and get rid of old bullets"""
+    # Update bullet Positions.
+    bullets.update()
+
+    # Get rid of bullets that have disappeared.
+    for (
+        bullet
+    ) in (
+        bullets.copy()
+    ):  # We shouldn't remove items from a list or group within a for loop, we have to loop over a copy of the group
+        if bullet.rect.bottom <= 0:
+            bullets.remove(bullet)

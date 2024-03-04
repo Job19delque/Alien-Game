@@ -5,6 +5,7 @@ from pygame.sprite import Sprite
 class Alien(Sprite):
     """A class to represent a single alien in the fleet."""
 
+    # Almost akin to ship.py file except for the placement of the alien.
     def __init__(self, ai_settings, screen):
         """Initialize the alien and set its starting position."""
         super(Alien, self).__init__()

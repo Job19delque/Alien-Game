@@ -88,15 +88,21 @@ def create_fleet(ai_settings, screen, aliens):
     """Create a full fleet of aliens."""
     # Create an alien and find the number of aliens in a row
     # Spacing between each alien is equal to one alien width
-    alien = Alien(ai_settings, screen)
-    alien_width = alien.rect.width
-    available_space_x = ai_settings.screen_width - (2 * alien_width)
-    number_alien_x = available_space_x / (2 * alien_width)
+    alien = Alien(ai_settings, screen) # knowing the alien's width and height to proceed with the calculations
+    alien_width = alien.rect.width # here we get alien's width from rect and store in alien_width
+    available_space_x = ai_settings.screen_width - (2 * alien_width) # Calculate the horizontal space available and
+    # the number of aliens that can fit into the space
+
+    number_alien_x = int(available_space_x / (2 * alien_width)) # To end up with an integer numbers of aliens
+    # to no create partials aliens
 
     # Create the first row of aliens
-    for alien_number in range(number_alien_x):
+    for alien_number in range(number_alien_x): # Counts from 0 to the number of aliens we need to make
         # Create an alien and place it in the row
-        alien = Alien(ai_settings, screen)
+
+        alien = Alien(ai_settings, screen) #Create a new alien, then sets its x-coordinate value in place it in the row 
+
+        # We multiply the alien by 2 to account for the space each alien takes up
         alien.x = alien_width + 2 * alien_width * alien_width
         alien.rect.x = alien.x
-        alien.add(alien)
+        alien.add(alien)# adding each new alien to the group of alien

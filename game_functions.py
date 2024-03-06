@@ -31,7 +31,7 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
         bullet.draw_bullet()
 
     ship.blitme()
-    aliens.draw(screen) # To make alien appear onscreen
+    aliens.draw(screen)  # To make alien appear onscreen
 
     # Make the most recently drawn screen visible.
     pygame.display.flip()
@@ -87,29 +87,47 @@ def update_bullets(bullets):
 
 def get_number_aliens_x(ai_settings, alien_width):
     """Determine the number of aliens that fit in a row."""
-    available_space_x = ai_settings.screen_width - (2 * alien_width) # Calculate the horizontal space available and
+    available_space_x = ai_settings.screen_width - (
+        2 * alien_width
+    )  # Calculate the horizontal space available and
     # the number of aliens that can fit into the space
 
-    number_aliens_x = int(available_space_x / (2 * alien_width)) # To end up with an integer numbers of aliens
+    number_aliens_x = int(
+        available_space_x / (2 * alien_width)
+    )  # To end up with an integer numbers of aliens
     # to no create partials aliens
     return number_aliens_x
-    
-def create_alien(ai_settings, screen, aliens, alien_number):
+
+
+def get_number_rows(ai_settings, ship_height, alien_height):
+    """Determine the number of rows of aliens that fit on the screen"""
+    available_space_y = ai_settings.screen_height - (3 * alien_height) - ship_height
+    number_rows = int(available_space_y / (2 * alien_height))
+    return number_rows
+
+
+def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     """Create an alien and place it in the row"""
-    alien = Alien(ai_settings, screen) #Create a new alien, then sets its x-coordinate value in place it in the row
+    alien = Alien(
+        ai_settings, screen
+    )  # Create a new alien, then sets its x-coordinate value in place it in the row
     alien_width = alien.rect.width
 
     # We multiply the alien by 2 to account for the space each alien takes up
     alien.x = alien_width + 2 * alien_width * alien_number
     alien.rect.x = alien.x
-    aliens.add(alien)# adding each new alien to the group of alien
+    alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+    aliens.add(alien)  # adding each new alien to the group of alien
 
-def create_fleet(ai_settings, screen, aliens):
+
+def create_fleet(ai_settings, screen, ship, aliens):
     """Create a full fleet of aliens"""
     # Create an alien and find the number of aliens in a row
     alien = Alien(ai_settings, screen)
     number_alien_x = get_number_aliens_x(ai_settings, alien.rect.width)
+    number_rows = get_number_rows(ai_settings, ship.rect.height, alien.rect.height)
 
     # Create the first row of aliens.
-    for alien_number in range(number_alien_x):
-        create_alien(ai_settings, screen, aliens, alien_number)
+    for row_number in range(number_rows):
+        for alien_number in range(number_alien_x):
+            create_alien(ai_settings, screen, aliens, alien_number, row_number)

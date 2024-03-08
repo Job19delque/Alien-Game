@@ -1,6 +1,7 @@
 """Refactoring. Preventing the alien_invasion.py from becoming to lengthy. """
 
 import sys
+from time import sleep
 
 import pygame
 from bullet import Bullet
@@ -163,7 +164,36 @@ def change_fleet_direction(ai_settings, aliens):
     ai_settings.fleet_direction *= -1
 
 
-def update_aliens(ai_settings, ship, aliens):
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+    """Respond to ship being hit by alien"""
+    if stats.ships_left > 0:
+        # Decrement ships left.
+        stats.ship_left -= 1
+
+        # Empty the list of aliens and bullets
+        aliens.empty()
+        bullets.empty()
+
+        # Create a new fleet and center the ship.
+        create_fleet(ai_settings, screen, ship, aliens)
+        ship.center_ship()
+
+        # Pause
+        sleep(0.5)
+    else:
+        stats.game_active = False
+
+
+def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+    """Check if any aliens have reached the bottom of the screen"""
+    screen_rect = screen.get_rect()
+    for alien in aliens.sprites():
+        if alien.rect.bottom >= screen_rect.bottom:
+            # treat this the same as if the ship got hit.
+            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+
+
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """
     Check if the fleet is at an edge, and then
     Update the position of all aliens in the fleet"""
@@ -171,5 +201,11 @@ def update_aliens(ai_settings, ship, aliens):
     aliens.update()
 
     # Look for alien-ship collisions.
+    # This method takes two arguments(ship, aliens) and looks for any member of the group that's collide
+    # the sprite and stops looping through the group as soon as it finds one member
     if pygame.sprite.spritecollideany(ship, aliens):
-        print("Ship hit!!!")
+        # print("Ship hit!!!")
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+
+    # Look for aliens hitting the bottom of the screen
+    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)

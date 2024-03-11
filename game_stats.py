@@ -11,6 +11,9 @@ class GameStats():
         # Start Alien Invasion in an active state.
         self.game_active = True # When the player runs out of ships
 
+        # Start game in an inactive sate.
+        self.game_active = False
+
     def reset_stats(self):
         """Initialize statistics that can change during the game."""
         self.ships_left = self.ai_settings.ship_limit

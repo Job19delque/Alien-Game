@@ -40,9 +40,12 @@ def check_play_button(
 ):
     """Start a new game when the player clicks Play"""
     if play_button.rect.collidepoint(mouse_x, mouse_y):
-        # Reset the game statistics
-        stats.reset_stats()
-        stats.game_active = True
+        """Start a new game when the player starts"""
+        button_clicked = play_button.rect.collideppoint(mouse_x, mouse_y)
+        if button_clicked and not stats.game_active:
+            # Reset the game statistics
+            stats.reset_stats()
+            stats.game_active = True
 
         # Empty the list of aliens and bullets
         aliens.empty()
